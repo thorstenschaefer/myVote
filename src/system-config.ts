@@ -3,10 +3,16 @@
  **********************************************************************************************/
 /** Map relative paths to URLs. */
 const map: any = {
+    firebase: 'vendor/firebase/lib/firebase-web.js',
+    angularfire2: 'vendor/angularfire2'
 };
 
 /** User packages configuration. */
 const packages: any = {
+     angularfire2: {
+      defaultExtension: 'js',
+      main: 'angularfire2.js'
+    }
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -29,6 +35,13 @@ const barrels: string[] = [
   // App specific barrels.
   'app',
   'app/shared',
+  'app/+view-poll',
+  'app/+vote-poll',
+  'app/+create-poll',
+  'app/+home',
+  'app/header',
+  'app/+about',
+  'app/poll-list',
   /** @cli-barrel */
 ];
 

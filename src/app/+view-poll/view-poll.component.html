@@ -1,0 +1,29 @@
+<h2>Poll results: {{poll.title}}</h2>
+
+<blockquote>
+  {{poll.question}}
+  <footer>asked by <em>{{poll.creator}}</em></footer>
+</blockquote>
+
+{{ poll.getTotalVotes() }} users have voted as follows:
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Option</th>
+        <th># Votes</th>
+        <th>Percentage</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let option of poll.getOptionStrings()">
+        <td>{{ option }}</td>
+        <td>{{ poll.options[option] }}</td>
+        <td>{{ poll.getPercentage(option) | percent:'.1-1'}}</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <a class="btn btn-primary" [routerLink]="['/']">Home</a>
+  <a class="btn btn-default" [routerLink]="['/vote-poll', poll.id]">Change my vote</a>
+</div>

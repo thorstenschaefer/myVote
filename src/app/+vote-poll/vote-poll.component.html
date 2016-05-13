@@ -1,0 +1,16 @@
+<h2>Vote for poll: {{poll.title}}</h2>
+
+<blockquote>
+  {{poll.question}}
+  <footer>asked by <em>{{poll.creator}}</em></footer>
+</blockquote>
+
+<ul class="list-group">
+  <button *ngFor="let option of poll.getOptionStrings()"
+     class="list-group-item"
+     (click)="vote(option)">
+     {{ option }}
+  </button>
+</ul>
+
+<a class="btn btn-default" [routerLink]="['/view-poll', poll.id]">Don't cast a vote and see results</a>

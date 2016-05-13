@@ -1,0 +1,19 @@
+<div *ngFor="let poll of polls" class="col-md-6">
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+      <h4>{{ poll.title }}</h4></div>
+    <div class="panel-body">
+      <p><em>{{poll.question}} ({{poll.getTotalVotes()}} votes)</em></p>
+    </div>
+
+    <!-- List group -->
+    <ul class="list-group">
+      <li *ngFor="let option of Object.keys(poll)" class="list-group-item">{{ option }}</li>
+    </ul>
+    <div class="panel-footer">
+      <a class="btn btn-primary" role="button" [routerLink]="['/vote-poll', poll.id]"><i class="glyphicon glyphicon-ok"></i> Make your vote</a>
+      <a class="btn btn-default" role="button" [routerLink]="['/view-poll', poll.id]"><i class="glyphicon glyphicon-eye-open"></i> View results</a>
+    </div>
+  </div>
+</div>

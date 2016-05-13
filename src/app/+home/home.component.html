@@ -1,0 +1,20 @@
+<div *ngIf="userService.isLoggedIn() | async">
+  Logged in as {{ (userService.getAuthentication() | async).name }}
+  <a (click)="userService.logout()" class="btn btn-primary">Logout</a>
+</div>
+<div *ngIf="!(userService.isLoggedIn() | async)">
+  <a (click)="userService.login()" class="btn btn-primary">Login</a>
+</div>
+
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>Welcome to myVote!</h1>
+    <p>This is a test project for modern web technologies.</p>
+    <p><a class="btn btn-primary btn-lg" [routerLink]="['/about']" role="button">Learn more »</a></p>
+  </div>
+</div>
+
+<h2>Recent polls</h2>
+
+<app-poll-list [polls]="recentPolls"></app-poll-list>
