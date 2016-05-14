@@ -65,16 +65,13 @@ export class CreatePollComponent implements OnInit {
   }
   
   onSubmit() {
-    console.log("Submitting poll");
-    console.log(JSON.stringify(this.poll));
+    console.log("Submitting poll" + JSON.stringify(this.poll));
     this.userService.getAuthentication().subscribe(user => {
       console.log("Determined user");
       this.poll.creatorId = (user) ? user.id : "Anonymous";
       this.poll.creatorName = (user) ? user.name : "Anonymous";
-      let key = this.pollService.insertorUpdatePoll(this.poll);
-      
-      console.log("GOING TO VIEW POLL ID " + key);
-      this.router.navigate(['/view-poll', this.poll.id]);
+      let newPollId = this.pollService.insertorUpdatePoll(this.poll);
+      this.router.navigate(['/view-poll', newPollId]);
     });
     
   }

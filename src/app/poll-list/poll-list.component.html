@@ -7,10 +7,10 @@
       <!--<p><em>{{poll.question}} ({{poll.getTotalVotes()}} votes)</em></p>-->
       <p><em>{{poll.question}}</em></p>
     </div>
-    {{ poll.options | json }}
+    {{ poll | json }}
 
     <ul class="list-group">
-      <li *ngFor="let option of poll.getOptionStrings()" class="list-group-item">{{ option }}</li>
+      <li *ngFor="let option of poll.options" class="list-group-item">{{ option.name }}</li>
     </ul>
     <div class="panel-footer">
       <a class="btn btn-primary" role="button" [routerLink]="['/vote-poll', poll.id]"><i class="glyphicon glyphicon-ok"></i> Make your vote</a>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, Routes , ROUTER_DIRECTIVES } from '@angular/router';
 import { AngularFire } from 'angularfire2';
 import { Observable } from 'rxjs';
@@ -26,7 +26,7 @@ import { PollService } from './data/poll.service';
   {path: '/vote-poll/:pollId', component: VotePollComponent},
   {path: '/create-poll', component: CreatePollComponent}
 ])
-export class MyVoteAppComponent {
+export class MyVoteAppComponent implements OnInit {
   
   items: Observable<any[]>;
 
@@ -34,7 +34,9 @@ export class MyVoteAppComponent {
     private af : AngularFire,
     private router: Router,
     private pollService: PollService
-  ) { 
-     this.items = pollService.getMostRecentPolls(100);
+  ) { }
+  
+  ngOnInit() {
+    this.items = this.pollService.getMostRecentPolls(100);
   }
 }

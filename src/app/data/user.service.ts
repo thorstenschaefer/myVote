@@ -3,6 +3,7 @@ import { AngularFire } from 'angularfire2';
 import { Observable } from 'rxjs';
 
 import { User } from '../data/user';
+
 @Injectable()
 export class UserService {
 
