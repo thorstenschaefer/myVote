@@ -4,12 +4,13 @@
     <div class="panel-heading">
       <h4>{{ poll.title }}</h4></div>
     <div class="panel-body">
-      <p><em>{{poll.question}} ({{poll.getTotalVotes()}} votes)</em></p>
+      <!--<p><em>{{poll.question}} ({{poll.getTotalVotes()}} votes)</em></p>-->
+      <p><em>{{poll.question}}</em></p>
     </div>
+    {{ poll.options | json }}
 
-    <!-- List group -->
     <ul class="list-group">
-      <li *ngFor="let option of Object.keys(poll)" class="list-group-item">{{ option }}</li>
+      <li *ngFor="let option of poll.getOptionStrings()" class="list-group-item">{{ option }}</li>
     </ul>
     <div class="panel-footer">
       <a class="btn btn-primary" role="button" [routerLink]="['/vote-poll', poll.id]"><i class="glyphicon glyphicon-ok"></i> Make your vote</a>

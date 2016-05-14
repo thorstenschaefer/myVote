@@ -9,13 +9,15 @@ import { ViewPollComponent } from './+view-poll';
 import { VotePollComponent } from './+vote-poll';
 import { CreatePollComponent } from './+create-poll';
 import { HomeComponent } from './+home';
+import { PollService } from './data/poll.service';
 
 @Component({
   moduleId: module.id,
   selector: 'my-vote-app',
   templateUrl: 'my-vote.component.html',
   styleUrls: ['my-vote.component.css'],
-  directives: [ROUTER_DIRECTIVES, HeaderComponent]
+  directives: [ROUTER_DIRECTIVES, HeaderComponent],
+  providers: [PollService]
 })
 @Routes([
   {path: '/', component: HomeComponent},
@@ -30,9 +32,9 @@ export class MyVoteAppComponent {
 
   constructor(
     private af : AngularFire,
-    private router:Router
+    private router: Router,
+    private pollService: PollService
   ) { 
-     this.items = af.list('/polls');
-     
+     this.items = pollService.getMostRecentPolls(100);
   }
 }

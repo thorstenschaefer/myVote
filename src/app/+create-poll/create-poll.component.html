@@ -3,6 +3,7 @@
 
 <span *ngIf="!active">Initializing form data...</span>
 
+<p>{{poll | json}}</p>
 
 <form *ngIf="active" (ngSubmit)="onSubmit()" #f="ngForm">
   <div class="form-group">
@@ -19,11 +20,11 @@
   <div class="form-group">
     <label>Options</label>
     
-    <div *ngFor="let option of poll.getOptionStrings()" class="input-group input-group-sm">
+    <div *ngFor="let option of poll.options" class="input-group input-group-sm">
       <div class="input-group-btn">
         <a class="btn btn-danger" (click)="deleteOption(option)"><i class="glyphicon glyphicon-remove"></i></a>
       </div>
-      <input type="text" class="form-control" value="{{option}}" readonly>
+      <input type="text" class="form-control" value="{{option.name}}" readonly>
     </div>
   </div>    
 
@@ -32,6 +33,6 @@
     <input type="text" class="form-control" [(ngModel)]="newOptionName" (keypress)="addNewOption($event)">
   </div>
   
-  <button class="btn btn-primary" [disabled]="!f.form.valid">Save</button>
+  <button class="btn btn-primary" [disabled]="!f.form.valid || poll.options.length < 2">Save</button>
   <!--<button type="submit" class="btn btn-info" (click)="initializePoll()">Reset (not working)</button>-->
 </form>

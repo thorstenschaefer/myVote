@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ROUTER_DIRECTIVES, RouteSegment, OnActivate } from '@angular/router';
 
-import {Poll} from '../data/poll';
+import {Poll, PollOption} from '../data/poll';
 import {PollService} from '../data/poll.service';
 
 @Component({
@@ -22,17 +22,15 @@ export class VotePollComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    // this.pollService.getById('1')
-    //   .subscribe(p => this.poll = p);
   }
   
   routerOnActivate(curr: RouteSegment): void {
     let pollId = curr.getParam('pollId');
     this.pollService.getById(pollId)
-      .subscribe(p => this.poll = p );
+      .subscribe(p => this.poll = p);
   }
 
-  vote(option: string) {
+  vote(option: PollOption) {
     this.pollService.vote(this.poll, option);
     this.router.navigate(['/view-poll', this.poll.id]);
   }

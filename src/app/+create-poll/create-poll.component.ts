@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FORM_DIRECTIVES } from '@angular/common';
+import { Router } from '@angular/router';
 
-import { Poll } from '../data/poll';
+import { Poll, PollOption } from '../data/poll';
 import { PollService } from '../data/poll.service';
 import { UserService } from '../data/user.service';
 
@@ -32,7 +33,8 @@ export class CreatePollComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private pollService: PollService
+    private pollService: PollService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -48,31 +50,59 @@ export class CreatePollComponent implements OnInit {
           setTimeout(()=> this.active=true, 0);
       });   
     } else {
-      this.poll = new Poll('', '', 'test', 'hello', {});
+      console.log("Using new poll");
+      this.poll = {
+        id: null,
+        creatorName : null,
+        creatorId : null,
+        creationDate : new Date(),
+        title : null,
+        question : null,
+        options : []
+      };
       setTimeout(()=> this.active=true, 0);
     }
   }
   
   onSubmit() {
+    console.log("Submitting poll");
+    console.log(JSON.stringify(this.poll));
     this.userService.getAuthentication().subscribe(user => {
-      this.poll.creator = user.name;
-      this.pollService.insertorUpdatePoll(this.poll);
+      console.log("Determined user");
+      this.poll.creatorId = (user) ? user.id : "Anonymous";
+      this.poll.creatorName = (user) ? user.name : "Anonymous";
+      let key = this.pollService.insertorUpdatePoll(this.poll);
+      
+      console.log("GOING TO VIEW POLL ID " + key);
+      this.router.navigate(['/view-poll', this.poll.id]);
     });
+    
   }
   
   addNewOption() {
     let e:KeyboardEvent = <KeyboardEvent>event;
     if (e.keyCode == 13) {
       console.warn("found enter");
-      console.log(this.newOptionName);
-      this.poll.options[this.newOptionName] = 0;
-      this.newOptionName = "";
-      e.preventDefault();      
+      if (this.newOptionName.length <= 0) {
+        console.warn("Empty string");
+        return;
+      } else {
+        console.log(this.newOptionName);
+        this.poll.options.push({ name: this.newOptionName, value: 0 });
+        this.newOptionName = "";
+      }   
+      e.preventDefault();
     }
   }
   
-  deleteOption(option: string) {
+  deleteOption(option: PollOption) {
     console.warn("delete option " + option);
-    delete this.poll.options[option];
+    let index = this.poll.options.indexOf(option);
+    console.log("idx: " + index);
+    if (index < 0) {
+      console.warn("Could not find option " + JSON.stringify(option) + " in poll " + JSON.stringify(this.poll));
+    } else {
+      this.poll.options.splice(index, 1);
+    }
   }
 }

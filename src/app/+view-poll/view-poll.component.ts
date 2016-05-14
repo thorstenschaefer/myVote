@@ -28,4 +28,10 @@ export class ViewPollComponent implements OnInit, OnActivate {
       .subscribe(p => this.poll = p );
   }
 
+  private getTotalVotes() {
+    // console.log(this.poll);
+    if (this.poll === null) // debug
+      return 0;
+    return this.poll.options.map(option => option.value).reduce((a, b) => a+b);
+  }
 }

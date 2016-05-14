@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
-import { Poll } from './poll';
+import { Poll, PollOption } from './poll';
 
 @Injectable()
 export class PollService {
@@ -15,49 +15,53 @@ export class PollService {
 
   allPolls: FirebaseListObservable<any[]>;
   
-  static DUMMY_POLLS = [
-    new Poll('1', 'Thorsten', 'TV Shows', 'What is your favorite TV show?', { "Breaking bad" : 1, "The Wire" : 5, "Sopranos" : 3, "Friends" : 0 } ),
-    new Poll('2', 'Thorsten', 'Programming Languages', 'Which programming languages do you use?', { "Java" : 4, "JavaScript" : 3, "C/C++" : 0, "Go" : 1, "SmallTalk" : 0 } ),
-    new Poll('3', 'Alice', 'First name', 'What is the better first name?', { "Alice" : 3, "Bob" : 3 } ),
-    new Poll('4', 'Alice', 'City', 'What is your favorite city?', { "Buenos Aires" : 1, "Berlin" : 5, "New York" : 3 } ),
-    new Poll('5', 'Bob', 'Football', 'Will Germany win the next football world cup?', { "Yes" : 44, "No" : 1 } )
-  ]; 
-
   getMostRecentPolls(number : number) : Observable<Poll[]> {
+    console.log("get most recent polls");
+    this.allPolls.subscribe(x => console.warn(JSON.stringify(x)));
     return this.allPolls;
-  }
+  } 
   
-  getByUser(user : string) : Observable<Poll[]> {
-    return Observable.of(PollService.DUMMY_POLLS);
-  }
+  // getByUser(user : string) : Observable<Poll[]> {
+  //   return Observable.of(PollService.DUMMY_POLLS);
+  // }
   
   getById(id: string) : Observable<Poll> {
-    return Observable.of(PollService.DUMMY_POLLS.filter(poll => poll.id == id)[0]);
+    console.log("Retrieve poll by id " + id);
+    let o =  this.af.object("/polls/" + id);
+    // we could keep the key in the object with { preserveSnapshot: true } as second argument to the object method
+    return o.map(o => { o.id = id; return o});
   }
   
-  vote(poll: Poll, option: string) {
+  delete(id: string) {
+    this.af.database.object('/polls/' + id).remove();
+  }
+  
+  vote(poll: Poll, option: PollOption) {
       console.log("voted for " + option + " in poll " + poll.question);
-      poll.options[option] += 1;
+      console.log("Before: " + JSON.stringify(poll));
+      option.value += 1;
+      console.log("After: " + JSON.stringify(poll));
+      console.warn("we dont perform an update yet...");
+      
+      let index = poll.options.indexOf(option);
+      
+      var optionReference = this.af.database 
+      var upvotesRef = new Firebase('https://docs-examples.firebaseio.com/android/saving-data/fireblog/posts/-JRHTHaIs-jNPLXOQivY/upvotes');
+upvotesRef.transaction(function (current_value) {
+  return (current_value || 0) + 1;
+});
+      
   }
 
   addPoll(poll: Poll) {
-    PollService.DUMMY_POLLS.push(poll);
+    // PollService.DUMMY_POLLS.push(poll);
   }
   
   insertorUpdatePoll(poll: Poll) {
     console.warn("we should persist poll " + JSON.stringify(poll));
-
-    this.allPolls.push(poll); 
-    console.log(this.allPolls);
-
-    this.getById(poll.id).subscribe(existingPoll => {
-        if (existingPoll) {
-          console.log("Modifying existing poll");
-        } else {
-          console.log("Adding new poll");
-          console.log(JSON.stringify(poll));
-          PollService.DUMMY_POLLS.push(poll);
-        }
-      });
+    let promise = this.allPolls.push(poll);
+    let id = promise.key();
+    poll.id = id;
+    return id;
   }
 }

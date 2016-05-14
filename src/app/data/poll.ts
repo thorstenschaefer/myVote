@@ -1,12 +1,13 @@
-export class Poll {
+export interface Poll {
     
-    constructor(
-        public creator: string,    
-        public title : string,   
-        public question : string,  
-        public options: {}
-    ) {}
- 
+    id: string;
+    creatorName: string;    
+    creatorId: string;
+    creationDate: Date;
+    title : string;
+    question : string;
+    options: Array<PollOption>;
+    
     // getOptionStrings() {
     //     return Object.keys(this.options);
     // }
@@ -28,3 +29,10 @@ export class Poll {
 
     // }
 } 
+
+export interface PollOption {
+    
+    name: string;
+    value: number;
+    
+}

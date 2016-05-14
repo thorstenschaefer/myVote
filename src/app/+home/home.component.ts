@@ -3,6 +3,8 @@ import { PollService } from '../data/poll.service'
 import { Router, Routes , ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from '@angular/router';
 import { PollListComponent } from '../poll-list';
 import { UserService } from '../data/user.service';
+import { Observable } from 'rxjs';
+import { Poll } from '../data/poll';
 
 @Component({
   moduleId: module.id,
@@ -19,9 +21,9 @@ export class HomeComponent implements OnInit {
     public userService: UserService
   ) {}
 
-  recentPolls = [];
+  recentPolls : Observable<Poll[]>;
   
   ngOnInit() {
-    this.pollService.getMostRecentPolls(10).subscribe(polls => this.recentPolls = polls); 
+    this.pollService.getMostRecentPolls(10); 
   }
 }
