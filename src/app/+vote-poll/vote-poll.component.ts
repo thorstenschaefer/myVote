@@ -4,13 +4,14 @@ import { Router, ROUTER_DIRECTIVES, RouteSegment, OnActivate } from '@angular/ro
 import {Poll, PollOption} from '../data/poll';
 import {PollService} from '../data/poll.service';
 import {PollQuestionComponent} from '../poll-question/poll-question.component';
+import { LoadingIndicatorComponent } from '../shared';
 
 @Component({
   moduleId: module.id,
   selector: 'app-vote-poll',
   templateUrl: 'vote-poll.component.html',
   providers: [PollService],
-  directives: [ROUTER_DIRECTIVES, PollQuestionComponent]
+  directives: [ROUTER_DIRECTIVES, PollQuestionComponent, LoadingIndicatorComponent]
 })
 export class VotePollComponent implements OnInit {
 

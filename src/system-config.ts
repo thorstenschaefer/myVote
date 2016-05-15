@@ -44,6 +44,7 @@ const barrels: string[] = [
   'app/poll-list',
   'app/+my-polls',
   'app/poll-question',
+  'app/loading-indicator',
   /** @cli-barrel */
 ];
 

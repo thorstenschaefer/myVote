@@ -1,8 +1,7 @@
 <h2>Vote for poll {{poll ? 'on topic ' + poll.title : ''}}</h2>
 
-<div *ngIf="!poll">
-  Loading poll data...
-</div>
+<app-loading-indicator [data]="poll"></app-loading-indicator>
+
 <div *ngIf="poll">
   <app-poll-question [poll]="poll"></app-poll-question>
   
