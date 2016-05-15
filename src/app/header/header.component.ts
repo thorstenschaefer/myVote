@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
+import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 
 import { UserService } from '../data/user.service';
 
@@ -13,9 +13,25 @@ import { UserService } from '../data/user.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private userService:UserService) {}
+  constructor(
+    private router:Router,
+    private userService:UserService
+  ) {}
 
   ngOnInit() {
+  }
+
+  logout() {
+    this.userService.logout();
+    this.router.navigate(['/']);
+  }
+
+  login() {
+    let promise = this.userService.login();
+    // after successful login, redirect to user page
+    promise.then(value => {
+      this.router.navigate(['/polls', value.github.username]);
+    });
   }
 
 }

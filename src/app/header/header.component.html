@@ -16,9 +16,9 @@
     <div id="navbar" class="navbar-collapse collapse">
 
       <!-- user specific menus -->
-      <ul class="nav navbar-nav">
+      <ul *ngIf="userService.isLoggedIn() | async" class="nav navbar-nav">
         <li><a [routerLink]="['/create-poll']">New poll</a></li>
-        <li><a [routerLink]="['/my-polls', 'thorstenschaefer']">My Polls (TODO)</a></li>
+        <li><a [routerLink]="['/polls', (userService.getAuthentication() | async).name]">My Polls</a></li>
       </ul>
       
       <!-- login -->
@@ -27,12 +27,12 @@
           <a>Logged in as {{ (userService.getAuthentication() | async).name }}</a>
         </li>
         <li *ngIf="userService.isLoggedIn() | async">
-          <a href="#" (click)="userService.logout()">
+          <a href="#" (click)="logout()">
             Logout
           </a>
         </li>
         <li *ngIf="!(userService.isLoggedIn() | async)">
-          <a href="#" (click)="userService.login()">
+          <a href="#" (click)="login()">
             <i class="fa fa-github fa-lg" aria-hidden="true"></i> Login
           </a>
         </li>

@@ -17,18 +17,15 @@ export class MyPollsComponent implements OnInit {
 
   constructor(public pollService: PollService) {}
 
-  // @Input() userId: string;
-  
   myPolls : Observable<Poll[]>;
+  userId : string;
   
   ngOnInit() {
-    // this.myPolls = this.pollService.getByUserId(this.userId);
   }
   
   routerOnActivate(curr: RouteSegment): void {
-    let userId = curr.getParam('userId');
-    console.log("Router activate with uid" + userId);
-    this.myPolls = this.pollService.getByUserName(userId);
+    this.userId = curr.getParam('userId');
+    this.myPolls = this.pollService.getByUserName(this.userId);
   }
-
+  
 }

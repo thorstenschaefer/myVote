@@ -23,12 +23,16 @@ export class PollService {
    * Returns the most recent polls
    */
   getMostRecentPolls(number : number) : Observable<Poll[]> {
-    return this.af.database.list('/polls', {
+    return this.af.database
+    // get all polls sorted by timestamp and limit the stream to the given number
+    .list('/polls', {
         query: {
-          orderByChild: 'timestamp',
+          orderByChild: 'timestamp',  
           limitToLast: number
         }
-    });
+    })
+    // firebase can only sort by ascending order, so we reverse the array here.
+    .map(polls => polls.reverse()); 
   } 
   
   /**

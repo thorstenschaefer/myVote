@@ -1,14 +1,11 @@
-<h2>Vote for poll: {{poll ? poll.title : ''}}</h2>
+<h2>Vote for poll {{poll ? 'on topic ' + poll.title : ''}}</h2>
 
 <div *ngIf="!poll">
   Loading poll data...
 </div>
 <div *ngIf="poll">
-  <blockquote>
-    {{poll.question}}
-    <footer>asked by <em>{{poll.creatorName}}</em></footer>
-  </blockquote>
-
+  <app-poll-question [poll]="poll"></app-poll-question>
+  
   <ul class="list-group">
     <button *ngFor="let option of poll.options"
       class="list-group-item"

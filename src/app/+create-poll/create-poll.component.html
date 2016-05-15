@@ -3,8 +3,6 @@
 
 <span *ngIf="!active">Initializing form data...</span>
 
-<p>{{poll | json}}</p>
-
 <form *ngIf="active" (ngSubmit)="onSubmit()" #f="ngForm">
   <div class="form-group">
     <label for="title">Title</label>

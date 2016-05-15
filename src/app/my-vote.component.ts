@@ -26,7 +26,7 @@ import { PollService } from './data/poll.service';
   {path: '/view-poll/:pollId', component: ViewPollComponent},
   {path: '/vote-poll/:pollId', component: VotePollComponent},
   {path: '/create-poll', component: CreatePollComponent},
-  {path: '/my-polls/:userId', component: MyPollsComponent}
+  {path: '/polls/:userId', component: MyPollsComponent}
 ])
 export class MyVoteAppComponent implements OnInit {
   

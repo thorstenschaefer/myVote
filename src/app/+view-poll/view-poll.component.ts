@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { RouteSegment, OnActivate, ROUTER_DIRECTIVES } from '@angular/router';
 import {Poll} from '../data/poll';
 import {PollService} from '../data/poll.service';
+import { PollQuestionComponent } from '../poll-question/poll-question.component';
 
 @Component({
   moduleId: module.id,
   selector: 'app-view-poll',
   templateUrl: 'view-poll.component.html',
   styleUrls: ['view-poll.component.css'],
-  directives: [ROUTER_DIRECTIVES],
+  directives: [ROUTER_DIRECTIVES, PollQuestionComponent],
   providers: [PollService]
 })
 export class ViewPollComponent implements OnInit, OnActivate {

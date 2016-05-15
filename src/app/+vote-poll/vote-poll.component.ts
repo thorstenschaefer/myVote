@@ -3,6 +3,7 @@ import { Router, ROUTER_DIRECTIVES, RouteSegment, OnActivate } from '@angular/ro
 
 import {Poll, PollOption} from '../data/poll';
 import {PollService} from '../data/poll.service';
+import {PollQuestionComponent} from '../poll-question/poll-question.component';
 
 @Component({
   moduleId: module.id,
@@ -10,7 +11,7 @@ import {PollService} from '../data/poll.service';
   templateUrl: 'vote-poll.component.html',
   styleUrls: ['vote-poll.component.css'],
   providers: [PollService],
-  directives: [ROUTER_DIRECTIVES]
+  directives: [ROUTER_DIRECTIVES, PollQuestionComponent]
 })
 export class VotePollComponent implements OnInit {
 

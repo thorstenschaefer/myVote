@@ -24,6 +24,6 @@ export class HomeComponent implements OnInit {
   recentPolls : Observable<Poll[]>;
   
   ngOnInit() {
-    this.recentPolls = this.pollService.getMostRecentPolls(3); 
+    this.recentPolls = this.pollService.getMostRecentPolls(10); 
   }
 }

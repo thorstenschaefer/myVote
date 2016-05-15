@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFire } from 'angularfire2';
+import { AngularFire, FirebaseAuthState } from 'angularfire2';
 import { Observable } from 'rxjs';
 
 import { User } from '../data/user';
@@ -21,9 +21,9 @@ export class UserService {
     return this.getAuthentication().map(auth => auth !== null);
   }
   
-  login() {
+  login(): Promise<FirebaseAuthState> {
     console.log("Login called");
-    this.af.auth.login();
+    return this.af.auth.login();
   }
   
   logout() {

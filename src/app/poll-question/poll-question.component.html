@@ -1,0 +1,4 @@
+<blockquote>
+  {{poll.question}}
+  <footer>asked by <em><a [routerLink]="['/polls/', poll.creatorName]">{{poll.creatorName}}</a></em> on {{poll.timestamp | date}}</footer>
+</blockquote>
