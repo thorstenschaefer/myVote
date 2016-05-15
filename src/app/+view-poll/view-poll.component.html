@@ -1,8 +1,4 @@
-Here's the object {{ poll | json }}
-
 <h2>Poll results: {{ poll ? poll.title : ''}}</h2>
-
-<p>DEUBG: {{poll | json}}</p>
 
 <div *ngIf="!poll">
   Loading poll data
@@ -11,12 +7,13 @@ Here's the object {{ poll | json }}
 <div *ngIf="poll">
   <blockquote>
     {{poll.question}}
-    <footer>asked by <em>{{poll.creatorName}}</em></footer>
+    <footer>asked by <em>{{poll.creatorName}}</em> on {{poll.timestamp | date}}</footer>
   </blockquote>
 
-  {{ getTotalVotes() }} users have voted as follows:
+  <p>{{ getTotalVotes() }} users have voted as follows:</p>
+  
   <div class="table-responsive">
-    <table class="table table-hover">
+    <table class="table table-hover table-bordered">
       <thead>
         <tr>
           <th>Option</th>
@@ -25,12 +22,14 @@ Here's the object {{ poll | json }}
       </thead>
       <tbody>
         <tr *ngFor="let option of poll.options">
-          <td>{{ option.name }}</td>
+          <td style="width:25%">{{ option.name }}</td>
           <td>{{ option.value }}</td>
         </tr>
       </tbody>
     </table>
-    
+  </div>
+  <p>
     <a class="btn btn-primary" [routerLink]="['/']">Home</a>
-    <a class="btn btn-default" [routerLink]="['/vote-poll', poll.id]">Change my vote</a>
+    <a class="btn btn-default" [routerLink]="['/vote-poll', poll.id]">Vote</a>
+  </p>
 </div>

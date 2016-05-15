@@ -1,21 +1,4 @@
 <div class="container">
   <app-header></app-header>
-<!--DEBUG LINKS
-<a [routerLink]="['/view-poll', '1' ]">View poll</a>
-<a [routerLink]="['/vote-poll', '1' ]">Vote poll</a>
-<a [routerLink]="['/create-poll']">Create poll</a>
--->
-
-<div style="background-color:lightgray">
-  <p>Testing AF</p>
-  <ul>
-    <li *ngFor="let item of items | async">
-      {{item | json}}
-    </li>
-  </ul>  
-</div>
-
-
   <router-outlet></router-outlet>
-
 </div>

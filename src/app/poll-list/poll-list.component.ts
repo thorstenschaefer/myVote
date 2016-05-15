@@ -19,4 +19,7 @@ export class PollListComponent implements OnInit {
   ngOnInit() {
   }
 
+  getVotes(poll: Poll): number {
+    return poll.options.map((option) => option.value).reduce((prev, curr) => prev+curr);
+  }
 }

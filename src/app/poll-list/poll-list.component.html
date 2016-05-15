@@ -2,12 +2,11 @@
   <div class="panel panel-default">
     <!-- Default panel contents -->
     <div class="panel-heading">
-      <h4>{{ poll.title }}</h4></div>
+      <h4>{{ poll.title }} ({{ getVotes(poll) }} votes)</h4></div>
     <div class="panel-body">
-      <!--<p><em>{{poll.question}} ({{poll.getTotalVotes()}} votes)</em></p>-->
-      <p><em>{{poll.question}}</em></p>
+      <p><em>{{poll.question}}</em> asked by {{ poll.creatorName }} </p>
     </div>
-    {{ poll | json }}
+    <!--{{ poll | json }}-->
 
     <ul class="list-group">
       <li *ngFor="let option of poll.options" class="list-group-item">{{ option.name }}</li>

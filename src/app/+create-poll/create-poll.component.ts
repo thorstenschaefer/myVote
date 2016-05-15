@@ -55,7 +55,7 @@ export class CreatePollComponent implements OnInit {
         id: null,
         creatorName : null,
         creatorId : null,
-        creationDate : new Date(),
+        timestamp : (new Date()).getTime(),
         title : null,
         question : null,
         options : []
@@ -70,8 +70,9 @@ export class CreatePollComponent implements OnInit {
       console.log("Determined user");
       this.poll.creatorId = (user) ? user.id : "Anonymous";
       this.poll.creatorName = (user) ? user.name : "Anonymous";
-      let newPollId = this.pollService.insertorUpdatePoll(this.poll);
-      this.router.navigate(['/view-poll', newPollId]);
+      console.log("This goes to the service: " + JSON.stringify(this.poll));
+      let newPollId = this.pollService.insertPoll(this.poll);
+      this.router.navigate(['/view-poll', this.poll.id]);
     });
     
   }

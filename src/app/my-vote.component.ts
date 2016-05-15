@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, Routes , ROUTER_DIRECTIVES } from '@angular/router';
+import { Component, OnInit, Inject } from '@angular/core';
+import { Router, Routes , ROUTER_DIRECTIVES , ROUTER_PROVIDERS} from '@angular/router';
 import { AngularFire } from 'angularfire2';
 import { Observable } from 'rxjs';
+import { MyPollsComponent } from './+my-polls';
 
 import { HeaderComponent } from './header';
 import { AboutComponent } from './+about';
@@ -24,7 +25,8 @@ import { PollService } from './data/poll.service';
   {path: '/about', component: AboutComponent},
   {path: '/view-poll/:pollId', component: ViewPollComponent},
   {path: '/vote-poll/:pollId', component: VotePollComponent},
-  {path: '/create-poll', component: CreatePollComponent}
+  {path: '/create-poll', component: CreatePollComponent},
+  {path: '/my-polls/:userId', component: MyPollsComponent}
 ])
 export class MyVoteAppComponent implements OnInit {
   

@@ -3,7 +3,7 @@ export interface Poll {
     id: string;
     creatorName: string;    
     creatorId: string;
-    creationDate: Date;
+    timestamp: number;
     title : string;
     question : string;
     options: Array<PollOption>;

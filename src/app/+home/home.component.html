@@ -1,18 +1,3 @@
-DEBUG:
-
-<!--<p>User =  '{{userService.getAuthentication() | async | json}}'</p>
-<p>Logged in? {{userService.isLoggedIn() | async }}</p>-->
-<!-- *ngIf="!userService.isLoggedIn() | async" -->
-
-<div *ngIf="userService.isLoggedIn() | async">
-  Logged in as {{ (userService.getAuthentication() | async).name }}
-  <a (click)="userService.logout()" class="btn btn-primary">Logout</a>
-</div>
-<div *ngIf="!(userService.isLoggedIn() | async)">
-  <a (click)="userService.login()" class="btn btn-primary">Login</a>
-</div>
-
-
 <div class="jumbotron">
   <div class="container">
     <h1>Welcome to myVote!</h1>

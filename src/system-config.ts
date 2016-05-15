@@ -42,6 +42,7 @@ const barrels: string[] = [
   'app/header',
   'app/+about',
   'app/poll-list',
+  'app/+my-polls',
   /** @cli-barrel */
 ];
 
