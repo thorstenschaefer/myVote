@@ -5,10 +5,10 @@
 <div *ngIf="poll">
   <app-poll-question [poll]="poll"></app-poll-question>
 
-  <p>{{ getTotalVotes() }} users have voted as follows:</p>
+  <p>{{ totalVotes }} users have voted as follows:</p>
   
   <div class="table-responsive">
-    <table class="table table-hover table-bordered">
+    <table class="table table-hover">
       <thead>
         <tr>
           <th>Option</th>
@@ -16,9 +16,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let option of poll.options">
+        <tr *ngFor="let option of poll.options" [class.warning]="option.value===highestVotes">
           <td style="width:25%">{{ option.name }}</td>
-          <td>{{ option.value }}</td>
+          <td>
+            <div *ngIf="option.value==0">No votes yet</div>
+            <div *ngIf="option.value > 0" [style.width]="getPercentage(option) | percent" style="background-color:#337ab7;color:white;font-weight: bold;">&nbsp;{{ option.value }}</div></td>
         </tr>
       </tbody>
     </table>
