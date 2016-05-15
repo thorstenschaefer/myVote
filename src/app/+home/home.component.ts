@@ -10,7 +10,6 @@ import { Poll } from '../data/poll';
   moduleId: module.id,
   selector: 'app-home',
   templateUrl: 'home.component.html',
-  styleUrls: ['home.component.css'],
   directives: [ROUTER_DIRECTIVES, PollListComponent],
   providers: [PollService, UserService]
 })

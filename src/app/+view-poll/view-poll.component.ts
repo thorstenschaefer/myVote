@@ -8,7 +8,6 @@ import { PollQuestionComponent } from '../poll-question/poll-question.component'
   moduleId: module.id,
   selector: 'app-view-poll',
   templateUrl: 'view-poll.component.html',
-  styleUrls: ['view-poll.component.css'],
   directives: [ROUTER_DIRECTIVES, PollQuestionComponent],
   providers: [PollService]
 })

@@ -10,7 +10,6 @@ import { UserService } from '../data/user.service';
   moduleId: module.id,
   selector: 'app-poll-list',
   templateUrl: 'poll-list.component.html',
-  styleUrls: ['poll-list.component.css'],
   directives: [ROUTER_DIRECTIVES],
   providers: [PollService, UserService ]
 })

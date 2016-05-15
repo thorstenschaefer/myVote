@@ -7,7 +7,6 @@ import { UserService } from '../data/user.service';
   moduleId: module.id,
   selector: 'app-header',
   templateUrl: 'header.component.html',
-  styleUrls: ['header.component.css'],
   directives: [ROUTER_DIRECTIVES],
   providers: [UserService]
 })

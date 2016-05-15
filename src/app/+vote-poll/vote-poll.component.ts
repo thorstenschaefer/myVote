@@ -9,7 +9,6 @@ import {PollQuestionComponent} from '../poll-question/poll-question.component';
   moduleId: module.id,
   selector: 'app-vote-poll',
   templateUrl: 'vote-poll.component.html',
-  styleUrls: ['vote-poll.component.css'],
   providers: [PollService],
   directives: [ROUTER_DIRECTIVES, PollQuestionComponent]
 })

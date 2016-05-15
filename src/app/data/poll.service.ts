@@ -43,7 +43,7 @@ export class PollService {
    * We just use the user name by now.
    */
   getByUserName(userName : string) : Observable<Poll[]> {
-    console.log("Finding polls created by user " + userName);
+    // console.log("Finding polls created by user " + userName);
     return this.af.database.list('/polls', {
         query: {
           orderByChild: 'creatorName',         
@@ -56,17 +56,16 @@ export class PollService {
    * Returns the poll with the given id
    */
   getById(id: string) : FirebaseObjectObservable<Poll> {
-    console.log("Retrieve poll by id " + id);
+    // console.log("Retrieve poll by id " + id);
     let o =  this.af.object("/polls/" + id);
-    // we could keep the key in the object with { preserveSnapshot: true } as second argument to the object method
-    return o;//.map(o => { o.id = id; return o});
+    return o;
   }
   
   /**
    * Deletes the poll with the given id
    */
   delete(id: string) {
-    console.log("Deleting poll with id " + id);
+    // console.log("Deleting poll with id " + id);
     this.allPolls.remove(id);
   }
   
@@ -81,19 +80,16 @@ export class PollService {
    * will be processed correctly by firebase.
    */  
   vote(poll: Poll, option: PollOption) {
-      console.log("voted for " + option + " in poll " + poll.question);
+      // console.log("voted for " + option + " in poll " + poll.question);
       let index = poll.options.indexOf(option);
       this.ref.child('polls').child(poll.id).child('options').transaction(function(currentValue) {
-        // console.warn("THIS IS THE CURRENT VALUE" + JSON.stringify(currentValue));
         let options: PollOption[] = currentValue;
         for (let singleOption of options) {
           if (singleOption.name !== option.name)
             continue;
-          console.log("FOUND IT: " + singleOption)
           singleOption.value++;
           break;
         }
-        // console.warn("THIS IS THE CURRENT VALUE AFTER CHANGE" + JSON.stringify(currentValue));
         
         return currentValue;
       });
@@ -107,7 +103,7 @@ export class PollService {
    * the id field set. 
    */
   insertPoll(poll: Poll) {
-    console.warn("we should persist poll " + JSON.stringify(poll));
+    // console.log("we should persist poll " + JSON.stringify(poll));
     let promise = this.allPolls.push(poll);
     let key = promise.key();
     poll.id = key;

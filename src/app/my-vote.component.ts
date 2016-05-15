@@ -16,7 +16,6 @@ import { PollService } from './data/poll.service';
   moduleId: module.id,
   selector: 'my-vote-app',
   templateUrl: 'my-vote.component.html',
-  styleUrls: ['my-vote.component.css'],
   directives: [ROUTER_DIRECTIVES, HeaderComponent],
   providers: [PollService]
 })
