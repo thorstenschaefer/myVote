@@ -11,6 +11,7 @@ import { VotePollComponent } from './+vote-poll';
 import { CreatePollComponent } from './+create-poll';
 import { HomeComponent } from './+home';
 import { PollService } from './data/poll.service';
+import { UserService } from './data/user.service';
 
 @Component({
   moduleId: module.id,
