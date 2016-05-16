@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
-import { AngularFire, FirebaseAuthState } from 'angularfire2';
+import { AngularFire, FirebaseAuthState, AuthProviders, AuthMethods } from 'angularfire2';
 import { Observable } from 'rxjs';
 
 import { User } from '../data/user';
+
+const FAKE_LOGIN_DATA = { email: 'thorstenschaefer@outlook.com', password: 'fakepassword' };
+const FAKE_LOGIN_CONFIG = { provider: AuthProviders.Password, method: AuthMethods.Password };
+const FAKE_USER_DETAILS = { "id": "FakeUser", "name": "Fake User" };
 
 @Injectable()
 export class UserService {
@@ -14,7 +18,7 @@ export class UserService {
     return this.af.auth.map(auth => 
       auth === null 
         ? null 
-        : { "id" : auth.uid, "name" : auth.github.username });
+        : auth.uid.startsWith('github') ? { "id" : auth.uid, "name" : auth.github.username } : FAKE_USER_DETAILS);
   }
 
   isLoggedIn(): Observable<boolean> {
@@ -24,6 +28,11 @@ export class UserService {
   login(): Promise<FirebaseAuthState> {
     console.log("Login called");
     return this.af.auth.login();
+  }
+    
+  fakeLogin(): Promise<FirebaseAuthState> {
+    console.log("Fake login called");
+    return this.af.auth.login(FAKE_LOGIN_DATA, FAKE_LOGIN_CONFIG);
   }
   
   logout() {

@@ -32,12 +32,10 @@ export class CreatePollComponent implements OnInit {
 
   initializePoll() {
     if (this.pollId) {
-      console.log("Loading poll with id " + this.pollId);
       this.pollService.getById(this.pollId).subscribe(p => {
           this.poll = p;
       });   
     } else {
-      console.log("Using new poll");
       this.poll = {
         id: null,
         creatorName : null,
@@ -51,12 +49,9 @@ export class CreatePollComponent implements OnInit {
   }
   
   onSubmit() {
-    console.log("Submitting poll" + JSON.stringify(this.poll));
     this.userService.getAuthentication().subscribe(user => {
-      console.log("Determined user");
       this.poll.creatorId = (user) ? user.id : "Anonymous";
       this.poll.creatorName = (user) ? user.name : "Anonymous";
-      console.log("This goes to the service: " + JSON.stringify(this.poll));
       let newPollId = this.pollService.insertPoll(this.poll);
       this.router.navigate(['/view-poll', this.poll.id]);
     });
@@ -66,12 +61,9 @@ export class CreatePollComponent implements OnInit {
   addNewOption() {
     let e:KeyboardEvent = <KeyboardEvent>event;
     if (e.keyCode == 13) {
-      console.warn("found enter");
       if (this.newOptionName.length <= 0) {
-        console.warn("Empty string");
         return;
       } else {
-        console.log(this.newOptionName);
         this.poll.options.push({ name: this.newOptionName, value: 0 });
         this.newOptionName = "";
       }   
@@ -80,9 +72,7 @@ export class CreatePollComponent implements OnInit {
   }
   
   deleteOption(option: PollOption) {
-    console.warn("delete option " + option);
     let index = this.poll.options.indexOf(option);
-    console.log("idx: " + index);
     if (index < 0) {
       console.warn("Could not find option " + JSON.stringify(option) + " in poll " + JSON.stringify(this.poll));
     } else {

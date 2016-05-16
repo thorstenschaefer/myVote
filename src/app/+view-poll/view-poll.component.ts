@@ -31,6 +31,8 @@ export class ViewPollComponent implements OnInit, OnActivate {
     this.pollService.getById(pollId)
       .subscribe(p => {
         this.poll = p;
+        if (p === null)
+          return;
         this.highestVotes = p.options.map(o => o.value).reduce((a,b) => Math.max(a,b));
         this.totalVotes = p.options.map(o => o.value).reduce((a,b) => a+b);
       } );

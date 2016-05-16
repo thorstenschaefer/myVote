@@ -16,7 +16,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let option of poll.options" [class.warning]="option.value===highestVotes">
+        <tr *ngFor="let option of poll.options" [class.warning]="option.value > 0 && option.value===highestVotes">
           <td style="width:25%">{{ option.name }}</td>
           <td>
             <div *ngIf="option.value==0">No votes yet</div>

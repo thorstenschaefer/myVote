@@ -33,6 +33,10 @@ export class PollListComponent implements OnInit {
     this.pollService.delete(pollId);
   }
   
+  addOption(pollId: string, name:string) {
+    alert("adding option" + name + " to poll " + pollId);
+  }
+  
   /**
    * Returns true if the poll is owned by the currently logged in user
    */

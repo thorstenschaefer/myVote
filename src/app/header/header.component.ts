@@ -30,7 +30,15 @@ export class HeaderComponent implements OnInit {
     // after successful login, redirect to user page
     promise.then(value => {
       this.router.navigate(['/polls', value.github.username]);
-    });
+    }).catch(reason => alert(reason));
+  }
+  
+  fakeLogin() {
+    let promise = this.userService.fakeLogin();
+    // after successful login, redirect to user page
+    promise.then(value => { 
+      this.router.navigate(['/polls', 'Fake User']);
+    }).catch(reason => alert(reason));
   }
 
 }
