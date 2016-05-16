@@ -4,6 +4,7 @@ import { RouteSegment, Router, OnActivate, ROUTER_DIRECTIVES } from '@angular/ro
 import { Poll, PollOption, PollService } from '../data';
 import { PollQuestionComponent } from '../poll-question';
 import { LoadingIndicatorComponent } from '../../shared';
+import {LocationStrategy, PathLocationStrategy, Location} from '@angular/common';
 
 @Component({
   moduleId: module.id,
