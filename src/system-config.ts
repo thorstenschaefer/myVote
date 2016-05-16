@@ -35,16 +35,20 @@ const barrels: string[] = [
   // App specific barrels.
   'app',
   'app/shared',
-  'app/+view-poll',
-  'app/+vote-poll',
-  'app/+create-poll',
   'app/+home',
   'app/header',
   'app/+about',
-  'app/poll-list',
-  'app/+my-polls',
-  'app/poll-question',
-  'app/loading-indicator',
+  'app/polls',
+  'app/polls/+view-poll',
+  'app/polls/+vote-poll',
+  'app/polls/+create-poll',
+  'app/polls/data',
+  'app/polls/+my-polls',
+  'app/polls/poll-list',
+  'app/polls/poll-question',
+  'app/shared',
+  'app/shared/loading-indicator',
+  'app/user',
   /** @cli-barrel */
 ];
 

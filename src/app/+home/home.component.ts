@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { PollService } from '../data/poll.service'
 import { Router, Routes , ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from '@angular/router';
-import { PollListComponent } from '../poll-list';
-import { UserService } from '../data/user.service';
 import { Observable } from 'rxjs';
-import { Poll } from '../data/poll';
+
+import { Poll, PollService, PollListComponent } from '../polls';
+import { UserService } from '../user';
 
 @Component({
   moduleId: module.id,
