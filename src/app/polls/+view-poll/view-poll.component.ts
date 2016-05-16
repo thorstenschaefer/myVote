@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouteSegment, OnActivate, ROUTER_DIRECTIVES } from '@angular/router';
+import { RouteSegment, Router, OnActivate, ROUTER_DIRECTIVES } from '@angular/router';
 
 import { Poll, PollOption, PollService } from '../data';
 import { PollQuestionComponent } from '../poll-question';
@@ -16,10 +16,12 @@ export class ViewPollComponent implements OnInit, OnActivate {
   private poll: Poll;
   private totalVotes: number;
   private highestVotes: number;
+  private message: string;
   
   constructor(
-    private pollService : PollService) {
-  }
+    private pollService : PollService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
 
@@ -27,6 +29,17 @@ export class ViewPollComponent implements OnInit, OnActivate {
   
   routerOnActivate(curr: RouteSegment): void {
     let pollId = curr.getParam('pollId');
+    
+    // add a message if the poll was just created
+    // this is not the most elegant way, but the router doesn't provide the
+    // possibility to get the external url of the tree w/o the params :/
+    if (curr.getParam('newlyCreated')) {
+      let url = window.location.href;
+      let paramIndex = url.lastIndexOf(';');
+      let newUrl = url.substring(0, paramIndex);
+      this.message = 'You can share your poll with the URL: ' + newUrl;
+    }
+    
     this.pollService.getById(pollId)
       .subscribe(p => {
         this.poll = p;
