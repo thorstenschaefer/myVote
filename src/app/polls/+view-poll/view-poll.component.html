@@ -3,6 +3,12 @@
 <app-loading-indicator [data]="poll"></app-loading-indicator>
 
 <div *ngIf="poll">
+  
+  <div *ngIf="message" class="alert alert-info alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    {{ message }}
+  </div>
+  
   <app-poll-question [poll]="poll"></app-poll-question>
 
   <p>{{ totalVotes }} users have voted as follows:</p>

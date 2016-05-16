@@ -60,7 +60,7 @@ export class CreatePollComponent implements OnInit {
       this.poll.creatorId = (user) ? user.id : "Anonymous";
       this.poll.creatorName = (user) ? user.name : "Anonymous";
       let newPollId = this.pollService.insertPoll(this.poll);
-      this.router.navigate(['/poll', 'view', this.poll.id]);
+      this.router.navigate(['/poll', 'view', this.poll.id, { newlyCreated: true } ]);
     });
     
   }
