@@ -1,0 +1,23 @@
+<div *ngFor="let poll of polls" class="col-md-6">
+  <div class="panel panel-default">
+    <!-- Render topic and question-->
+    <div class="panel-heading">
+      <h4>{{ poll.title }} ({{ getVotes(poll) }} votes)</h4></div>
+    <div class="panel-body">
+      <p><em>{{poll.question}}</em> asked by {{ poll.creatorName }} </p>
+    </div>
+
+    <!-- Render options-->
+    <ul class="list-group">
+      <li *ngFor="let option of poll.options" class="list-group-item">{{ option.name }}</li>
+    </ul>
+    
+    <!-- Render footer-->
+    <div class="panel-footer">
+      <a class="btn btn-primary" role="button" [routerLink]="['/vote-poll', poll.id]"><i class="glyphicon glyphicon-ok"></i> Make your vote</a>
+      <a class="btn btn-default" role="button" [routerLink]="['/view-poll', poll.id]"><i class="glyphicon glyphicon-eye-open"></i> View results</a>
+      <a *ngIf="isOwnPoll(poll) | async" class="btn btn-danger" role="button" (click)="deletePoll(poll.id)"><i class="glyphicon glyphicon-remove"></i> Delete poll</a>
+      <!--<a *ngIf="isOwnPoll(poll) | async" class="btn btn-default" role="button" [routerLink]="['/createPoll', poll.id]"><i class="glyphicon glyphicon-edit"></i> Edit poll</a>-->
+    </div>
+  </div>
+</div>
