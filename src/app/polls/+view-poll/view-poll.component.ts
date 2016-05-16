@@ -9,8 +9,7 @@ import { LoadingIndicatorComponent } from '../../shared';
   moduleId: module.id,
   selector: 'app-view-poll',
   templateUrl: 'view-poll.component.html',
-  directives: [ROUTER_DIRECTIVES, PollQuestionComponent, LoadingIndicatorComponent],
-  providers: [PollService]
+  directives: [ROUTER_DIRECTIVES, PollQuestionComponent, LoadingIndicatorComponent]
 })
 export class ViewPollComponent implements OnInit, OnActivate {
 
@@ -23,29 +22,23 @@ export class ViewPollComponent implements OnInit, OnActivate {
   }
 
   ngOnInit() {
-    console.warn("INIT VIEW POLL")
+
   }
   
   routerOnActivate(curr: RouteSegment): void {
-    console.warn("ON INIT ROUTER");
     let pollId = curr.getParam('pollId');
     this.pollService.getById(pollId)
       .subscribe(p => {
         this.poll = p;
         if (p === null)
           return;
+          
+        // update total votes and highestVotes
         this.highestVotes = p.options.map(o => o.value).reduce((a,b) => Math.max(a,b));
         this.totalVotes = p.options.map(o => o.value).reduce((a,b) => a+b);
       } );
   }
 
-  // private getTotalVotes() {
-  //   // console.log(this.poll);
-  //   if (this.poll === null) // debug
-  //     return 0;
-  //   return this.poll.options.map(option => option.value).reduce((a, b) => a+b);
-  // }
-  
   private getPercentage(option: PollOption):number {
     return option.value / this.totalVotes;
   }

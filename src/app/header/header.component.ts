@@ -7,8 +7,7 @@ import { UserService } from '../user';
   moduleId: module.id,
   selector: 'app-header',
   templateUrl: 'header.component.html',
-  directives: [ROUTER_DIRECTIVES],
-  providers: [UserService]
+  directives: [ROUTER_DIRECTIVES]
 })
 export class HeaderComponent implements OnInit {
 
@@ -27,12 +26,9 @@ export class HeaderComponent implements OnInit {
 
   login() {
     let promise = this.userService.login();
-    console.warn("PROMISE: " + JSON.stringify(promise));
     // after successful login, redirect to user page
     promise.then(value => {
-      console.warn("VALUE: " + JSON.stringify(value));
-      this.router.navigate(['/polls', value.github.username]);
-      console.warn("AFTER NAV");
+      this.router.navigate(['/poll', 'user', value.github.username]);
     }).catch(reason => alert(reason));
   }
   
@@ -40,7 +36,7 @@ export class HeaderComponent implements OnInit {
     let promise = this.userService.fakeLogin();
     // after successful login, redirect to user page
     promise.then(value => { 
-      this.router.navigate(['/polls', 'Fake User']);
+      this.router.navigate(['/poll', 'user', 'Fake User']);
     }).catch(reason => alert(reason));
   }
 

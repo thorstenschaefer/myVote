@@ -4,9 +4,9 @@ import { AngularFire } from 'angularfire2';
 import { Observable } from 'rxjs';
 
 import { HeaderComponent } from './header';
-import { AboutComponent } from './+about';
 import { HomeComponent } from './+home';
-import { ViewPollComponent, VotePollComponent, CreatePollComponent, MyPollsComponent, PollService } from './polls';
+import { AboutComponent } from './+about';
+import { PollsComponent, PollService } from './polls';
 import { UserService } from './user';
 
 @Component({
@@ -19,10 +19,7 @@ import { UserService } from './user';
 @Routes([
   {path: '/', component: HomeComponent},
   {path: '/about', component: AboutComponent},
-  {path: '/view-poll/:pollId', component: ViewPollComponent},
-  {path: '/vote-poll/:pollId', component: VotePollComponent},
-  {path: '/create-poll', component: CreatePollComponent},
-  {path: '/polls/:userId', component: MyPollsComponent}
+  {path: '/poll', component: PollsComponent}
 ])
 export class MyVoteAppComponent implements OnInit {
   
@@ -30,11 +27,9 @@ export class MyVoteAppComponent implements OnInit {
 
   constructor(
     private af : AngularFire,
-    private router: Router,
-    private pollService: PollService
+    private router: Router
   ) { }
   
   ngOnInit() {
-    this.items = this.pollService.getMostRecentPolls(100);
   }
 }

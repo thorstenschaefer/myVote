@@ -14,8 +14,8 @@
     
     <!-- Render footer-->
     <div class="panel-footer">
-      <a class="btn btn-primary" role="button" [routerLink]="['/vote-poll', poll.id]"><i class="glyphicon glyphicon-ok"></i> Make your vote</a>
-      <a class="btn btn-default" role="button" [routerLink]="['/view-poll', poll.id]"><i class="glyphicon glyphicon-eye-open"></i> View results</a>
+      <a class="btn btn-primary" role="button" [routerLink]="['/poll', 'vote', poll.id]"><i class="glyphicon glyphicon-ok"></i> Make your vote</a>
+      <a class="btn btn-default" role="button" [routerLink]="['/poll', 'view', poll.id]"><i class="glyphicon glyphicon-eye-open"></i> View results</a>
       <a *ngIf="isOwnPoll(poll) | async" class="btn btn-danger" role="button" (click)="deletePoll(poll.id)"><i class="glyphicon glyphicon-remove"></i> Delete poll</a>
       <!--<a *ngIf="isOwnPoll(poll) | async" class="btn btn-default" role="button" [routerLink]="['/createPoll', poll.id]"><i class="glyphicon glyphicon-edit"></i> Edit poll</a>-->
     </div>

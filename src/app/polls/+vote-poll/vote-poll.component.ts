@@ -9,7 +9,6 @@ import { LoadingIndicatorComponent } from '../../shared';
   moduleId: module.id,
   selector: 'app-vote-poll',
   templateUrl: 'vote-poll.component.html',
-  providers: [PollService],
   directives: [ROUTER_DIRECTIVES, PollQuestionComponent, LoadingIndicatorComponent]
 })
 export class VotePollComponent implements OnInit {
@@ -32,6 +31,6 @@ export class VotePollComponent implements OnInit {
 
   vote(option: PollOption) {
     this.pollService.vote(this.poll, option);
-    this.router.navigate(['/view-poll', this.poll.id]);
+    this.router.navigate(['/poll', 'view', this.poll.id]);
   }
 }

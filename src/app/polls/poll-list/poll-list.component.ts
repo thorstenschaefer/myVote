@@ -9,8 +9,7 @@ import { UserService } from '../../user';
   moduleId: module.id,
   selector: 'app-poll-list',
   templateUrl: 'poll-list.component.html',
-  directives: [ROUTER_DIRECTIVES],
-  providers: [PollService, UserService ]
+  directives: [ROUTER_DIRECTIVES]
 })
 export class PollListComponent implements OnInit {
 

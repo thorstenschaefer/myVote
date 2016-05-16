@@ -23,7 +23,7 @@ export class PollService {
    * Returns the most recent polls
    */
   getMostRecentPolls(number : number) : Observable<Poll[]> {
-    console.log("get most recent polls");
+    // console.log("get most recent polls");
     return this.af.database
     // get all polls sorted by timestamp and limit the stream to the given number
     .list('/polls', {
@@ -44,7 +44,7 @@ export class PollService {
    * We just use the user name by now.
    */
   getByUserName(userName : string) : Observable<Poll[]> {
-    console.log("Finding polls created by user " + userName);
+    // console.log("Finding polls created by user " + userName);
     return this.af.database.list('/polls', {
         query: {
           orderByChild: 'creatorName',         

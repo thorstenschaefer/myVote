@@ -9,8 +9,7 @@ import { UserService } from '../user';
   moduleId: module.id,
   selector: 'app-home',
   templateUrl: 'home.component.html',
-  directives: [ROUTER_DIRECTIVES, PollListComponent],
-  providers: [PollService, UserService]
+  directives: [ROUTER_DIRECTIVES, PollListComponent]
 })
 export class HomeComponent implements OnInit {
 

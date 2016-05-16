@@ -9,8 +9,7 @@ import { UserService } from '../../user';
   moduleId: module.id,
   selector: 'app-create-poll',
   templateUrl: 'create-poll.component.html',
-  directives: [FORM_DIRECTIVES],
-  providers: [PollService, UserService]
+  directives: [FORM_DIRECTIVES]
 })
 export class CreatePollComponent implements OnInit {
 
@@ -49,10 +48,13 @@ export class CreatePollComponent implements OnInit {
   
   onSubmit() {
     this.userService.getAuthentication().subscribe(user => {
+      if (user === null) {
+        // add error message to view!
+      }
       this.poll.creatorId = (user) ? user.id : "Anonymous";
       this.poll.creatorName = (user) ? user.name : "Anonymous";
       let newPollId = this.pollService.insertPoll(this.poll);
-      this.router.navigate(['/view-poll', this.poll.id]);
+      this.router.navigate(['/poll', 'view', this.poll.id]);
     });
     
   }
@@ -61,8 +63,10 @@ export class CreatePollComponent implements OnInit {
     let e:KeyboardEvent = <KeyboardEvent>event;
     if (e.keyCode == 13) {
       if (this.newOptionName.length <= 0) {
+        // TODO: add error message 
         return;
       } else {
+        // TOTO: check if option with the same name exists
         this.poll.options.push({ name: this.newOptionName, value: 0 });
         this.newOptionName = "";
       }   

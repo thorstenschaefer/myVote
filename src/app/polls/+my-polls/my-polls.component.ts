@@ -22,7 +22,6 @@ export class MyPollsComponent implements OnInit {
   }
   
   routerOnActivate(curr: RouteSegment): void {
-    console.warn("ACTIVATING MY POLLS")
     this.userId = curr.getParam('userId');
     this.myPolls = this.pollService.getByUserName(this.userId);
   }

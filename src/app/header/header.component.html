@@ -16,8 +16,8 @@
 
         <!-- user specific menus -->
         <ul *ngIf="userService.isLoggedIn() | async" class="nav navbar-nav">
-          <li><a [routerLink]="['/create-poll']">New poll</a></li>
-          <li><a [routerLink]="['/polls', (userService.getAuthentication() | async).name]">My Polls</a></li>
+          <li><a [routerLink]="['./poll', 'create']">New poll</a></li>
+          <li><a [routerLink]="['./poll', 'user', (userService.getAuthentication() | async).name]">My Polls</a></li>
         </ul>
 
         <!-- login -->
