@@ -17,7 +17,9 @@ export class CreatePollComponent implements OnInit {
 
   poll: Poll;
   newOptionName: string = '';
-
+  messageOptionErrors: string[];
+  messages: string[];
+  
   constructor(
     private userService: UserService,
     private pollService: PollService,
@@ -26,6 +28,8 @@ export class CreatePollComponent implements OnInit {
 
   ngOnInit() {
     this.initializePoll();
+    this.messageOptionErrors = [];
+    this.messages = [];
   }
 
   initializePoll() {
@@ -47,9 +51,11 @@ export class CreatePollComponent implements OnInit {
   }
   
   onSubmit() {
+    this.messages = [];
     this.userService.getAuthentication().subscribe(user => {
       if (user === null) {
-        // add error message to view!
+        this.messages.push('Access restricted to authenticated users.');
+        return;
       }
       this.poll.creatorId = (user) ? user.id : "Anonymous";
       this.poll.creatorName = (user) ? user.name : "Anonymous";
@@ -62,11 +68,12 @@ export class CreatePollComponent implements OnInit {
   addNewOption() {
     let e:KeyboardEvent = <KeyboardEvent>event;
     if (e.keyCode == 13) {
+      this.messageOptionErrors = [];
       if (this.newOptionName.length <= 0) {
-        // TODO: add error message 
-        return;
+        this.messageOptionErrors.push('Please enter the name of your poll option and then confirm with ENTER.');
+      } else if (this.poll.options.filter(o => o.name === this.newOptionName).length > 0) {
+        this.messageOptionErrors.push('An option needs to have a unique name.');
       } else {
-        // TOTO: check if option with the same name exists
         this.poll.options.push({ name: this.newOptionName, value: 0 });
         this.newOptionName = "";
       }   
