@@ -1,0 +1,89 @@
+<h2>About this application</h2>
+
+<h3>Background</h3>
+<p>
+  I am currently learning how to develop modern web applications. Therefore, I finished the Front End Certification from
+  <a href="http://www.freecodecamp.com">freeCodeCamp</a> and I'm currently working on the Back End Certification. One of
+  the challenges comprises the development of a voting application. The following user stories should be implemented:
+</p>
+
+Authenticated users can
+<ul>
+  <li>keep my polls and come back later to access them.</li>
+  <li>share my polls with my friends.</li>
+  <li>see the aggregate results of my polls.</li>
+  <li>delete polls that I decide I don't want anymore.</li>
+  <li>create a poll with any number of possible items.</li>
+</ul>
+All users, authenticated or not, can
+<ul>
+  <li>see and vote on everyone's polls.</li>
+  <li>see the results of polls in chart form.</li>
+</ul>
+
+
+<h3>Technologies used</h3>
+<p>
+  The frameworks taught at freeCodeCamp include jQuery for the front end and node.js with express.js and mongoDB for the back
+  end. As those frameworks have already been covered extensively, I decided to implement the application with different frameworks.
+</p>
+
+<dl class="dl-horizontal">
+  <dt><a href="http://getbootstrap.com">Bootstrap</a></dt>
+  <dd>CSS framework for making the user interface responsive.</dd>
+
+  <dt><a href="https://angular.io">Angular2 (RC-1)</a></dt>
+  <dd>Client-side JavaScript framework based on the MVC pattern to create single-page applications.</dd>
+
+  <dt><a href="https://www.firebase.com">Firebase</a></dt>
+  <dd>Backend as a service responsible for storing the data and user authentication.
+    <a href="https://angularfire2.com">AngularFire2</a> is used as an integration layer between Angular 2 and Firebase.
+  </dd>
+</dl>
+
+<h3>Implementation notes</h3>
+
+<p>The application is implemented based on the Angular 2 framework, currently in version RC-1. Unfortunately, despite the label
+  "Release Candidate", the maturity of the framework lacks a bit behind. The main concepts such as component-based development
+  and dependency injection are implemented in a very elegant manner, but there are still quite a few bugs or missing features,
+  e.g., resetting the state of a form. Also, during the development of this project, the old router was deprecated and a
+  new one is intoduced which has a large number of issues.</p>
+
+<p>The use of Firebase was completely new to me. My prior experience with backend development was based on relational DBMS.
+  Firebase is a NoSQL-DB where documents are stored in JSON format. The beauty of Firebase is that it doesn't require an
+  own backend server (the backend is basically a service) and everyting is reactive. For instance, open a second browser
+  window in incognito mode (or use one on a different device), go to a poll and then cast a vote within the first browser
+  window. The results are reflected within minimal time in the second browser window without the need to refresh - the data
+  gets pushed to the client automatically.
+</p>
+
+
+<h3>Limitations</h3>
+<ul>
+  <li>We are not storing information about which user voted on which poll. Hence, it is possible to cast several votes (for the
+    same option or different ones).
+  </li>
+  <li>The application has issues when running in Safari on OSX.
+    <ul>
+      <li><code>Can't find variable: Intl</code>: This is a
+        <a href="https://github.com/angular/angular/issues/3333">known bug</a> caused by Safari not supporting I18N. It will
+        hopefully be fixed in the final version with a polyfill.</li>
+      <li><code>the server responded with a status of 404 (Not Found)</code>: This is caused by
+        <a href="https://github.com/angular/angular-cli/issues/706">Angular CLI</a> currently not including the source maps
+        to speed up development build times. It can be fixed easily by integrating the source map files into the build but
+        is currently left out, as the CLI team might change this in the future.</li>
+    </ul>
+  </li>
+  <li>Currently only oauth authentication via github is provided. This is a choice by design as the application is only a proof
+    of concept and other forms of authentication (Facebook, Twitter, Username&Password, ...) work similar.
+  </li>
+  <li>Non-authenticated users can still route to a path (e.g., to create a new poll) by navigating directly to the respective
+    URL. Security rules are in place that they cannot create any data modification, but we want to avoid that they can go
+    to the respective forms in the first place. This functionality (method <code>canActivate()</code> is not yet implemented
+    in the redesigned router yet.</li>
+</ul>
+
+<h3>Implementation</h3>
+<p>The source code can be found at <i class="fa fa-github fa-lg" aria-hidden="true"></i>
+  <a href="https://github.com/thorstenschaefer/myVote">https://github.com/thorstenschaefer/myVote</a>
+</p>

@@ -1,0 +1,44 @@
+<h2>{{ !pollId ? 'Create a new poll' : 'Edit a poll' }}</h2>
+
+<div *ngFor="let message of messages" class="alert alert-danger alert-dismissible" role="alert-general">
+  <button type="button" class="close" data-dismiss="alert-general" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong>Error:</strong> {{message}}
+</div>    
+
+
+<form (ngSubmit)="onSubmit()" #f="ngForm">
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" class="form-control" required [(ngModel)]="poll.title" ngControl="title" #title="ngForm">
+    <div [hidden]="title.valid || title.pristine" class="alert alert-danger">Title is required</div>
+  </div>
+  <div class="form-group">
+    <label for="question">Question</label>
+    <input type="text" class="form-control" required [(ngModel)]="poll.question" ngControl="question" #question="ngForm">
+    <div [hidden]="question.valid || question.pristine" class="alert alert-danger">Question is required</div>
+  </div>
+
+  <div class="form-group">
+    <label>Options</label>
+    
+    <div *ngFor="let option of poll.options" class="input-group input-group-sm">
+      <div class="input-group-btn">
+        <a class="btn btn-danger" (click)="deleteOption(option)"><i class="glyphicon glyphicon-remove"></i></a>
+      </div>
+      <input type="text" class="form-control" value="{{option.name}}" readonly>
+    </div>
+  </div>    
+
+  <div class="form-group">
+    <label>Add a new option (just type in the option name and press <kbd>ENTER</kbd></label>
+    <input type="text" class="form-control" [(ngModel)]="newOptionName" (keypress)="addNewOption($event)">
+    
+    <div *ngFor="let message of messageOptionErrors" class="alert alert-danger alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <strong>Error:</strong> {{message}}
+    </div>    
+    
+  </div>
+  
+  <button class="btn btn-primary" [disabled]="!f.form.valid || poll.options.length < 2">Save</button>
+</form>

@@ -1,0 +1,16 @@
+<div class="jumbotron">
+  <div class="container">
+    <h1>myVote <small>The poll platform</small></h1>
+    <p>This is a test project for modern web technologies.</p>
+    <p>Authenticated users (via Github OAuth or a fake login) can create/edit/remove their own polls. Non-autenticated users can cast a vote
+      on any poll and view each poll's result.</p>
+    <p>All data is automatically synchronized - no browser refresh necessary. Try opening two browser instances and make a change in one browser - the other will automatically update.</p>
+    <p>
+      <a class="btn btn-primary btn-lg" [routerLink]="['./about']" role="button">Learn more »</a>
+    </p>
+  </div>
+</div>
+
+<h2>Recent polls</h2>
+
+<app-poll-list [polls]="recentPolls | async"></app-poll-list>

@@ -1,0 +1,17 @@
+<h2>Vote for poll {{poll ? 'on topic ' + poll.title : ''}}</h2>
+
+<app-loading-indicator [data]="poll"></app-loading-indicator>
+
+<div *ngIf="poll">
+  <app-poll-question [poll]="poll"></app-poll-question>
+  
+  <ul class="list-group">
+    <button *ngFor="let option of poll.options"
+      class="list-group-item"
+      (click)="vote(option)">
+      {{ option.name }}
+    </button>
+  </ul>
+
+  <a class="btn btn-default" [routerLink]="['../..', 'view', poll.id]">Don't cast a vote and see results</a>
+</div>
